@@ -18,7 +18,7 @@ namespace FindStatics
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FindStaticsCodeFixProvider)), Shared]
     public class FindStaticsCodeFixProvider : CodeFixProvider
     {
-        private const string title = "Make uppercase";
+        private const string title = "Remove static from field declaration";
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
@@ -34,40 +34,38 @@ namespace FindStatics
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
-
-            // TODO: Replace the following code with your own analysis, generating a CodeAction for each fix to suggest
             var diagnostic = context.Diagnostics.First();
             var diagnosticSpan = diagnostic.Location.SourceSpan;
 
             // Find the type declaration identified by the diagnostic.
-            var declaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<TypeDeclarationSyntax>().First();
+            var fieldDeclarationExpression = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<FieldDeclarationSyntax>().First();
 
             // Register a code action that will invoke the fix.
             context.RegisterCodeFix(
                 CodeAction.Create(
                     title: title,
-                    createChangedSolution: c => MakeUppercaseAsync(context.Document, declaration, c),
+                    createChangedDocument: c => RemoveStaticAsync(context.Document, fieldDeclarationExpression, c),
                     equivalenceKey: title),
                 diagnostic);
         }
 
-        private async Task<Solution> MakeUppercaseAsync(Document document, TypeDeclarationSyntax typeDecl, CancellationToken cancellationToken)
+        private async Task<Document> RemoveStaticAsync(Document document, FieldDeclarationSyntax fieldDeclaration, CancellationToken cancellationToken)
         {
-            // Compute new uppercase name.
-            var identifierToken = typeDecl.Identifier;
-            var newName = identifierToken.Text.ToUpperInvariant();
+            var staticModifier = from x in fieldDeclaration.Modifiers
+                                 where x.ValueText.Equals("static")
+                                 select x;
 
-            // Get the symbol representing the type to be renamed.
-            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
-            var typeSymbol = semanticModel.GetDeclaredSymbol(typeDecl, cancellationToken);
+            var staticSyntaxToken = staticModifier.First();
 
-            // Produce a new solution that has all references to that type renamed, including the declaration.
-            var originalSolution = document.Project.Solution;
-            var optionSet = originalSolution.Workspace.Options;
-            var newSolution = await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newName, optionSet, cancellationToken).ConfigureAwait(false);
+            var root = await document.GetSyntaxRootAsync();
 
-            // Return the new solution with the now-uppercase type name.
-            return newSolution;
+            var emptyToken = SyntaxFactory.Token(SyntaxKind.None);
+
+            var newRootNode = root.ReplaceToken(staticSyntaxToken, emptyToken);
+
+            var newDocument = document.WithSyntaxRoot(newRootNode);
+
+            return newDocument;
         }
     }
 }
