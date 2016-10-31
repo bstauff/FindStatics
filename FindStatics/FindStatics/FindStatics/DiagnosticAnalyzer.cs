@@ -30,22 +30,25 @@ namespace FindStatics
         {
             // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
             // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Analyzer%20Actions%20Semantics.md for more information
-            context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
+            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.FieldDeclaration);
         }
 
-        private static void AnalyzeSymbol(SymbolAnalysisContext context)
+        private void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            // TODO: Replace the following code with your own analysis, generating Diagnostic objects for any issues you find
-            var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
+            var fieldDeclarationNode = (FieldDeclarationSyntax) context.Node;
 
-            // Find just those named type symbols with names containing lowercase letters.
-            if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
+            var staticModifier = from x in fieldDeclarationNode.Modifiers
+                                 where x.ValueText.Equals("static")
+                                 select x;
+
+            if (!staticModifier.Any())
             {
-                // For all such symbols, produce a diagnostic.
-                var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
-
-                context.ReportDiagnostic(diagnostic);
+                return;
             }
+
+            var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
+            var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
+            context.ReportDiagnostic(diagnostic);
         }
     }
 }
