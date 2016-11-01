@@ -15,14 +15,14 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace FindStatics
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FindStaticsCodeFixProvider)), Shared]
-    public class FindStaticsCodeFixProvider : CodeFixProvider
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FindStaticFieldsCodeFixProvider)), Shared]
+    public class FindStaticFieldsCodeFixProvider : CodeFixProvider
     {
         private const string title = "Remove static from field declaration";
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(FindStaticsAnalyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(FindStaticFieldsAnalyzer.DiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()

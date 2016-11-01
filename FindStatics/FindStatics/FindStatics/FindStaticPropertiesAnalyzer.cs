@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -11,9 +11,9 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace FindStatics
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class FindStaticsAnalyzer : DiagnosticAnalyzer
+    public class FindStaticPropertiesAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "FindStatics";
+        public const string DiagnosticId = "RB002";
 
         // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
         // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Localizing%20Analyzers.md for more on localization
@@ -28,14 +28,14 @@ namespace FindStatics
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.FieldDeclaration);
+            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.PropertyDeclaration);
         }
 
         private void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            var fieldDeclarationNode = (FieldDeclarationSyntax) context.Node;
+            var propertyDeclarationSyntax = (PropertyDeclarationSyntax)context.Node;
 
-            var staticModifier = from x in fieldDeclarationNode.Modifiers
+            var staticModifier = from x in propertyDeclarationSyntax.Modifiers
                                  where x.ValueText.Equals("static")
                                  select x;
 
@@ -44,8 +44,8 @@ namespace FindStatics
                 return;
             }
 
-            var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
-            var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
+            var variableName = propertyDeclarationSyntax.Identifier.ValueText;
+            var diagnostic = Diagnostic.Create(Rule, propertyDeclarationSyntax.GetLocation(), variableName);
             context.ReportDiagnostic(diagnostic);
         }
     }
