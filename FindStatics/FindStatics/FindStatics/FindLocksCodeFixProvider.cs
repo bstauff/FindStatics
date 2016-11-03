@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using System.Collections.Immutable;
 using System.Threading;
 using Microsoft.CodeAnalysis.CodeActions;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FindStatics
@@ -64,11 +65,12 @@ namespace FindStatics
 
             var currentRoot = await document.GetSyntaxRootAsync();
 
-            var rootWithoutLockStatement = currentRoot.RemoveNode(lockStatement, SyntaxRemoveOptions.KeepNoTrivia);
+            var rootWithoutLockStatement = currentRoot.ReplaceNode(lockStatement, allStatements);
 
-            //rootWithoutLockStatement.InsertNodesAfter(lockNodeParent, lockNodeExpressionStatements);
+            var newDocument = document.WithSyntaxRoot(rootWithoutLockStatement);
 
-            return null;
+            return newDocument;
+
         }
     }
 }
