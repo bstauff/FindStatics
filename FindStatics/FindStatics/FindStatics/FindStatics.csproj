@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FindLocksAnalyzer.cs" />
+    <Compile Include="FindLocksCodeFixProvider.cs" />
     <Compile Include="FindStaticFieldsCodeFixProvider.cs" />
     <Compile Include="FindStaticFieldsAnalyzer.cs" />
     <Compile Include="FindStaticPropertiesAnalyzer.cs" />
