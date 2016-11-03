@@ -21,8 +21,7 @@ namespace FindStatics
         private static readonly string Description = "Avoid using lock statements when working with Orleans.  Consider removing the lock.";
         private const string Category = "Design";
 
-        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, 
-            MessageFormat, Category, DiagnosticSeverity.Warning, true, Description);
+        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, true, Description);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
 
