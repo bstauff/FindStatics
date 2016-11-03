@@ -44,28 +44,20 @@ namespace FindStatics
         private async Task<Document> RemoveLockAsync(Document document, LockStatementSyntax lockStatement,
             CancellationToken cancellationToken)
         {
-            /*
-             * Save the block statement node from within the lock
-             * Remove the entire lock statement syntax node
-             * re insert the block statement node
-             */
-
             var lockNodeBlockStatements = from x in lockStatement.ChildNodes()
                                           where x is BlockSyntax
                                           select x;
 
             var lockNodeExpressionStatements = from BlockSyntax x in lockNodeBlockStatements
-                                            select x.Statements;
+                                               select x.Statements;
 
-            var allStatements = from SyntaxList<StatementSyntax> x in lockNodeExpressionStatements
+            var allExpressionStatements = from SyntaxList<StatementSyntax> x in lockNodeExpressionStatements
                                 from StatementSyntax y in x
                                 select y;
 
-            var lockNodeParent = lockStatement.Parent;
-
             var currentRoot = await document.GetSyntaxRootAsync();
 
-            var rootWithoutLockStatement = currentRoot.ReplaceNode(lockStatement, allStatements);
+            var rootWithoutLockStatement = currentRoot.ReplaceNode(lockStatement, allExpressionStatements);
 
             var newDocument = document.WithSyntaxRoot(rootWithoutLockStatement);
 
