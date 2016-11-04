@@ -36,7 +36,7 @@ namespace FindStatics
             var fieldDeclarationNode = (FieldDeclarationSyntax) context.Node;
 
             var staticModifier = from x in fieldDeclarationNode.Modifiers
-                                 where x.IsKind(SyntaxKind.StringKeyword)
+                                 where x.IsKind(SyntaxKind.StaticKeyword)
                                  select x;
 
             if (!staticModifier.Any())
