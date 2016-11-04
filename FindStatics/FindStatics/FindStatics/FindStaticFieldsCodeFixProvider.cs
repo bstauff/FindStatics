@@ -52,7 +52,7 @@ namespace FindStatics
         private async Task<Document> RemoveStaticAsync(Document document, FieldDeclarationSyntax fieldDeclaration, CancellationToken cancellationToken)
         {
             var staticModifier = from x in fieldDeclaration.Modifiers
-                                 where x.ValueText.Equals("static")
+                                 where x.IsKind(SyntaxKind.StaticKeyword)
                                  select x;
 
             var staticSyntaxToken = staticModifier.First();
