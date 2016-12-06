@@ -38,15 +38,31 @@ namespace FindStatics
             var staticModifier = from x in fieldDeclarationNode.Modifiers
                                  where x.IsKind(SyntaxKind.StaticKeyword)
                                  select x;
-
-            if (!staticModifier.Any())
+            if (staticModifier.Any())
             {
-                return;
-            }
-
-            var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
-            var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
-            context.ReportDiagnostic(diagnostic);
-        }
-    }
+				bool ReportViolation = true;
+				var varNodes = from y in fieldDeclarationNode.ChildNodes()
+							   where y.Kind() == SyntaxKind.VariableDeclaration
+							   select y;
+				if(varNodes.Any())
+				{
+					var rightNodes = from y in varNodes.First().ChildNodes()
+								 where y.Kind() == SyntaxKind.IdentifierName
+								 select y;
+					if(rightNodes.Any())
+					{
+						var typeType = context.SemanticModel.GetTypeInfo((IdentifierNameSyntax)rightNodes.First()).Type as INamedTypeSymbol;
+						if(typeType.Name == "TraceSource")
+							ReportViolation = false;
+					}
+				}
+				if(ReportViolation)
+				{
+					var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
+					var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
+					context.ReportDiagnostic(diagnostic);
+				}
+			}
+		}
+	}
 }
