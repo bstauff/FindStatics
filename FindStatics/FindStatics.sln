@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindStatics.Vsix", "FindSta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProgram", "TestProgram\TestProgram.csproj", "{43EA369D-B167-4B3A-B341-6E14EA1B59E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindStaticsTests", "FindStaticsTests\FindStaticsTests.csproj", "{D4C43378-FFCF-46F7-A6D6-41C238B31B5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{43EA369D-B167-4B3A-B341-6E14EA1B59E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43EA369D-B167-4B3A-B341-6E14EA1B59E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43EA369D-B167-4B3A-B341-6E14EA1B59E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4C43378-FFCF-46F7-A6D6-41C238B31B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C43378-FFCF-46F7-A6D6-41C238B31B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C43378-FFCF-46F7-A6D6-41C238B31B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C43378-FFCF-46F7-A6D6-41C238B31B5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
