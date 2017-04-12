@@ -15,4 +15,9 @@
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="FindStatics" Path="|FindStatics|"/>
     <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="FindStatics" Path="|FindStatics|"/>
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id ="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)"/>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.Diagnostictools" Version="[15.0.25814.0,16.0)"/>
+    <Prerequisite Id="Microsoft.VisualStudio.Shell.12.0" Version="[12.0]"/>
+  </Prerequisites>
 </PackageManifest>
