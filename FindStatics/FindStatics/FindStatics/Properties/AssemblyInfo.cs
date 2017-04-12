@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FindStatics")]
-[assembly: AssemblyDescription("xxx")]
+[assembly: AssemblyDescription("An analyzer to find static fields")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("xxxxx")]
+[assembly: AssemblyCompany("BStauff")]
 [assembly: AssemblyProduct("FindStatics")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
