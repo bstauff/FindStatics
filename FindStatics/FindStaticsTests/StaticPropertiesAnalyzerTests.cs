@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FindStatics;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using TestHelper;
 using Xunit;
-using Microsoft.CodeAnalysis;
 
 namespace FindStaticsTests
 {
     /// <summary>
-    /// These tests are for the FIELDS analyzer only
+    /// These tests are for the PROPERTIES analyzer only
     /// </summary>
-    public class StaticFieldsAnalyzerTests : CodeFixVerifier
+    public class StaticPropertiesAnalyzerTests : CodeFixVerifier
     {
         [Fact]
-        public void ShouldNotFindAnyStaticFieldsTest()
+        public void ShouldNotFindAnyStaticPropertiesTest()
         {
             var test = @"";
 
@@ -26,34 +26,35 @@ namespace FindStaticsTests
         }
 
         [Fact]
-        public void IgnoreStaticFieldInGeneratedCodeTest()
+        public void IgnoreStaticPropertyInGeneratedCodeTest()
         {
-            var test = 
-            @"
-            namespace junk
+            var test = @"
+namespace junk
+    {
+
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute(""yy"", ""1.0.0.0"")]
+        class ItWasMeCodeGenThing
+        {
+            public static global::System.Object DeepCopier(global::System.Object original, global::System.Object context)
             {
-
-                [global::System.CodeDom.Compiler.GeneratedCodeAttribute(""yy"", ""1.0.0.0"")]
-                class ItWasMeCodeGenThing
-                {
-                    private static string _findThis = ""Blergh"";
-
-                    public static global::System.Object DeepCopier(global::System.Object original, global::System.Object context)
-                    {
-                        return new Object();
-                    }         
-                }
+                return new Object();
             }
-            ";
+            public static string Thing
+            {
+                get; set;
+            }
+        }
+    }
 
-            //This should not generate any CodeAnalysis warnings
+";
+            //we want no error
             VerifyCSharpDiagnostic(test);
         }
 
         [Fact]
-        public void ShouldFindAStaticFieldTest()
+        public void ShouldFindAStaticPropertyTest()
         {
-            var test = 
+            var test =
             @"
             using System;
             using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace FindStaticsTests
             {
                 public class Class1
                 {
-                    private static string Findme = ""ugh"";
+                    public static string Findme {get; set;} = ""ugh"";
 
                     public Class1()
                     {
@@ -77,7 +78,7 @@ namespace FindStaticsTests
 
             var expected = new DiagnosticResult
             {
-                Id = "RB001",
+                Id = "RB002",
                 Message = "Field 'Findme' is marked static",
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
@@ -90,16 +91,16 @@ namespace FindStaticsTests
             //Verify that we found the static field
             VerifyCSharpDiagnostic(test, expected);
         }
-        
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
+
+        protected override CodeFixProvider GetBasicCodeFixProvider()
         {
-            return new FindStaticFieldsCodeFixProvider();
+            return new FindStaticPropertiesCodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new FindStaticFieldsAnalyzer();
+            return new FindStaticPropertiesAnalyzer();
         }
     }
 }

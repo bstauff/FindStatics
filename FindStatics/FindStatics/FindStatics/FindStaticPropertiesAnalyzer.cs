@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.Text;
 
 namespace FindStatics
 {
@@ -33,20 +34,50 @@ namespace FindStatics
 
         private void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
+            
+            if (!AreThereAnyCodegenAttributes(context))
+            {
+                var propertyDeclarationSyntax = (PropertyDeclarationSyntax)context.Node;
+
+                var staticModifier = from x in propertyDeclarationSyntax.Modifiers
+                    where x.IsKind(SyntaxKind.StaticKeyword)
+                    select x;
+
+                if (!staticModifier.Any())
+                {
+                    return;
+                }
+
+                var variableName = propertyDeclarationSyntax.Identifier.ValueText;
+                var diagnostic = Diagnostic.Create(Rule, propertyDeclarationSyntax.GetLocation(), variableName);
+                context.ReportDiagnostic(diagnostic);
+            }
+        }
+
+        /// <summary>
+        /// Helper method to check for codegen attributes
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns>Returns true if there are codegen attributes, false if there aren't.</returns>
+        private bool AreThereAnyCodegenAttributes(SyntaxNodeAnalysisContext context)
+        {
             var propertyDeclarationSyntax = (PropertyDeclarationSyntax)context.Node;
 
-            var staticModifier = from x in propertyDeclarationSyntax.Modifiers
-                                 where x.IsKind(SyntaxKind.StaticKeyword)
-                                 select x;
+            var classDeclarationSyntaxNode = propertyDeclarationSyntax.SyntaxTree
+                .GetRoot()
+                .DescendantNodes()
+                .Single(x => x.IsKind(SyntaxKind.ClassDeclaration));
 
-            if (!staticModifier.Any())
-            {
-                return;
-            }
+            var classDeclaractionSyntax = classDeclarationSyntaxNode as ClassDeclarationSyntax;
 
-            var variableName = propertyDeclarationSyntax.Identifier.ValueText;
-            var diagnostic = Diagnostic.Create(Rule, propertyDeclarationSyntax.GetLocation(), variableName);
-            context.ReportDiagnostic(diagnostic);
+            var attributesOnThisClass = classDeclaractionSyntax.AttributeLists.SelectMany(x => x.Attributes);
+
+            var generatedCodeAttributeNameSyntaxes = attributesOnThisClass
+                .Select(y => y.Name)
+                .Cast<QualifiedNameSyntax>()
+                .Where(y => y.Right.Identifier.ValueText.Equals("GeneratedCodeAttribute"));
+
+            return generatedCodeAttributeNameSyntaxes.Any();
         }
     }
 }
