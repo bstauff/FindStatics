@@ -33,20 +33,50 @@ namespace FindStatics
 
         private void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            var fieldDeclarationNode = (FieldDeclarationSyntax) context.Node;
-
-            var staticModifier = from x in fieldDeclarationNode.Modifiers
-                                 where x.IsKind(SyntaxKind.StaticKeyword)
-                                 select x;
-
-            if (!staticModifier.Any())
+            if (!AreThereAnyCodegenAttributes(context))
             {
-                return;
-            }
+                var fieldDeclarationNode = (FieldDeclarationSyntax)context.Node;
 
-            var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
-            var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
-            context.ReportDiagnostic(diagnostic);
+                var staticModifier = from x in fieldDeclarationNode.Modifiers
+                    where x.IsKind(SyntaxKind.StaticKeyword)
+                    select x;
+
+                if (!staticModifier.Any())
+                {
+                    return;
+                }
+
+                var variableName = fieldDeclarationNode.Declaration.Variables.First().Identifier.ValueText;
+                var diagnostic = Diagnostic.Create(Rule, fieldDeclarationNode.GetLocation(), variableName);
+                context.ReportDiagnostic(diagnostic);
+            }
+        }
+
+
+        /// <summary>
+        /// Helper method to check for codegen attributes
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns>Returns true if there are codegen attributes, false if there aren't.</returns>
+        private bool AreThereAnyCodegenAttributes(SyntaxNodeAnalysisContext context)
+        {
+            var propertyDeclarationSyntax = (FieldDeclarationSyntax)context.Node;
+
+            var classDeclarationSyntaxNode = propertyDeclarationSyntax.SyntaxTree
+                .GetRoot()
+                .DescendantNodes()
+                .Single(x => x.IsKind(SyntaxKind.ClassDeclaration));
+
+            var classDeclaractionSyntax = classDeclarationSyntaxNode as ClassDeclarationSyntax;
+
+            var attributesOnThisClass = classDeclaractionSyntax.AttributeLists.SelectMany(x => x.Attributes);
+
+            var generatedCodeAttributeNameSyntaxes = attributesOnThisClass
+                .Select(y => y.Name)
+                .Cast<QualifiedNameSyntax>()
+                .Where(y => y.Right.Identifier.ValueText.Equals("GeneratedCodeAttribute"));
+
+            return generatedCodeAttributeNameSyntaxes.Any();
         }
     }
 }
