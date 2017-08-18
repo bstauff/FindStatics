@@ -1,0 +1,139 @@
+﻿#if !EXCLUDE_CODEGEN
+#pragma warning disable 162
+#pragma warning disable 219
+#pragma warning disable 414
+#pragma warning disable 649
+#pragma warning disable 693
+#pragma warning disable 1591
+#pragma warning disable 1998
+[assembly: global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.4.0.0")]
+[assembly: global::Orleans.CodeGeneration.OrleansCodeGenerationTargetAttribute("Rb.ReactivePrototype.PCConsoleGrains, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")]
+namespace Rb.ReactivePrototype.PCConsoleGrains
+{
+    using global::Orleans.Async;
+    using global::Orleans;
+    using global::System.Reflection;
+
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.4.0.0"), global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute, global::Orleans.CodeGeneration.SerializerAttribute(typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState))]
+    internal class OrleansCodeGenRb_ReactivePrototype_PCConsoleGrains_PCConsoleGrainStateSerializer
+    {
+        private static readonly global::System.Reflection.FieldInfo field0 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("ActiveCalls", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>> getField0 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field0);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>> setField0 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field0);
+        private static readonly global::System.Reflection.FieldInfo field1 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("ActiveSwings", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> getField1 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field1);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> setField1 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field1);
+        private static readonly global::System.Reflection.FieldInfo field3 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("BedIndexesInPriority", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>> getField3 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field3);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>> setField3 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field3);
+        private static readonly global::System.Reflection.FieldInfo field2 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("BedIndexesInPrivacy", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> getField2 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field2);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> setField2 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field2);
+        private static readonly global::System.Reflection.FieldInfo field4 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("CoveredBeds", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.Int32>> getField4 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.Int32>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field4);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.Int32>> setField4 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.Int32>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field4);
+        private static readonly global::System.Reflection.FieldInfo field5 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("CoveredSwingIndexes", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> getField5 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field5);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>> setField5 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.List<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field5);
+        private static readonly global::System.Reflection.FieldInfo field6 = typeof (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState).@GetTypeInfo().@GetField("RoomIndexesToBedIndexes", (System.@Reflection.@BindingFlags.@Instance | System.@Reflection.@BindingFlags.@NonPublic | System.@Reflection.@BindingFlags.@Public));
+        private static readonly global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>> getField6 = (global::System.Func<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>>)global::Orleans.Serialization.SerializationManager.@GetGetter(field6);
+        private static readonly global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>> setField6 = (global::System.Action<global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState, global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>>)global::Orleans.Serialization.SerializationManager.@GetReferenceSetter(field6);
+        [global::Orleans.CodeGeneration.CopierMethodAttribute]
+        public static global::System.Object DeepCopier(global::System.Object original, global::Orleans.Serialization.ICopyContext context)
+        {
+            global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState input = ((global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState)original);
+            global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState result = new global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState();
+            context.@RecordCopy(original, result);
+            setField0(result, (global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField0(input), context));
+            setField1(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField1(input), context));
+            setField3(result, (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField3(input), context));
+            setField2(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField2(input), context));
+            setField4(result, (global::System.Collections.Generic.List<global::System.Int32>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField4(input), context));
+            setField5(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField5(input), context));
+            setField6(result, (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@DeepCopyInner(getField6(input), context));
+            return result;
+        }
+
+        [global::Orleans.CodeGeneration.SerializerMethodAttribute]
+        public static void Serializer(global::System.Object untypedInput, global::Orleans.Serialization.ISerializationContext context, global::System.Type expected)
+        {
+            global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState input = (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState)untypedInput;
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField0(input), context, typeof (global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField1(input), context, typeof (global::System.Collections.Generic.List<global::System.UInt16>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField3(input), context, typeof (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField2(input), context, typeof (global::System.Collections.Generic.List<global::System.UInt16>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField4(input), context, typeof (global::System.Collections.Generic.List<global::System.Int32>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField5(input), context, typeof (global::System.Collections.Generic.List<global::System.UInt16>));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(getField6(input), context, typeof (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>));
+        }
+
+        [global::Orleans.CodeGeneration.DeserializerMethodAttribute]
+        public static global::System.Object Deserializer(global::System.Type expected, global::Orleans.Serialization.IDeserializationContext context)
+        {
+            global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState result = new global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState();
+            context.@RecordObject(result);
+            setField0(result, (global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.List<global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall>), context));
+            setField1(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.List<global::System.UInt16>), context));
+            setField3(result, (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleStreamMessagePriorityType>), context));
+            setField2(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.List<global::System.UInt16>), context));
+            setField4(result, (global::System.Collections.Generic.List<global::System.Int32>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.List<global::System.Int32>), context));
+            setField5(result, (global::System.Collections.Generic.List<global::System.UInt16>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.List<global::System.UInt16>), context));
+            setField6(result, (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Collections.Generic.Dictionary<global::System.UInt16, global::System.Collections.Generic.IEnumerable<global::System.UInt16>>), context));
+            return (global::Rb.ReactivePrototype.PCConsoleGrains.PCConsoleGrainState)result;
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Orleans-CodeGenerator", "1.4.0.0"), global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute, global::Orleans.CodeGeneration.SerializerAttribute(typeof (global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall))]
+    internal class OrleansCodeGenRb_ReactivePrototype_PCConsoleStreamContracts_PCConsoleSnapshotActiveCallSerializer
+    {
+        [global::Orleans.CodeGeneration.CopierMethodAttribute]
+        public static global::System.Object DeepCopier(global::System.Object original, global::Orleans.Serialization.ICopyContext context)
+        {
+            global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall input = ((global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall)original);
+            global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall result = new global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall();
+            context.@RecordCopy(original, result);
+            result.@BaseTime = input.@BaseTime;
+            result.@BedIndex = input.@BedIndex;
+            result.@CallIndex = input.@CallIndex;
+            result.@CallPlacedStartTimeUtc = input.@CallPlacedStartTimeUtc;
+            result.@CallTagMessage = input.@CallTagMessage;
+            result.@EscalationIndex = input.@EscalationIndex;
+            return result;
+        }
+
+        [global::Orleans.CodeGeneration.SerializerMethodAttribute]
+        public static void Serializer(global::System.Object untypedInput, global::Orleans.Serialization.ISerializationContext context, global::System.Type expected)
+        {
+            global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall input = (global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall)untypedInput;
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@BaseTime, context, typeof (global::System.UInt32));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@BedIndex, context, typeof (global::System.UInt16));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@CallIndex, context, typeof (global::System.Byte));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@CallPlacedStartTimeUtc, context, typeof (global::System.DateTime));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@CallTagMessage, context, typeof (global::System.String));
+            global::Orleans.Serialization.SerializationManager.@SerializeInner(input.@EscalationIndex, context, typeof (global::System.UInt16));
+        }
+
+        [global::Orleans.CodeGeneration.DeserializerMethodAttribute]
+        public static global::System.Object Deserializer(global::System.Type expected, global::Orleans.Serialization.IDeserializationContext context)
+        {
+            global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall result = new global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall();
+            context.@RecordObject(result);
+            result.@BaseTime = (global::System.UInt32)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.UInt32), context);
+            result.@BedIndex = (global::System.UInt16)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.UInt16), context);
+            result.@CallIndex = (global::System.Byte)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.Byte), context);
+            result.@CallPlacedStartTimeUtc = (global::System.DateTime)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.DateTime), context);
+            result.@CallTagMessage = (global::System.String)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.String), context);
+            result.@EscalationIndex = (global::System.UInt16)global::Orleans.Serialization.SerializationManager.@DeserializeInner(typeof (global::System.UInt16), context);
+            return (global::Rb.ReactivePrototype.PCConsoleStreamContracts.PCConsoleSnapshotActiveCall)result;
+        }
+    }
+}
+#pragma warning restore 162
+#pragma warning restore 219
+#pragma warning restore 414
+#pragma warning restore 649
+#pragma warning restore 693
+#pragma warning restore 1591
+#pragma warning restore 1998
+#endif
+
