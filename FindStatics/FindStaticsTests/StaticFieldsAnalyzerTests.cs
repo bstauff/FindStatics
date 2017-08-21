@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,18 @@ namespace FindStaticsTests
 
             VerifyCSharpDiagnostic(test);
         }
+
+
+        [Fact]
+        public void IgnoreStaticFieldInOrleansGeneratedCodeTest()
+        {
+            var test = File.ReadAllText(@"testfiles\codegen.txt");
+
+            //This should not generate any CodeAnalysis warnings
+            VerifyCSharpDiagnostic(test);
+        }
+
+
 
         [Fact]
         public void IgnoreStaticFieldInGeneratedCodeTest()
